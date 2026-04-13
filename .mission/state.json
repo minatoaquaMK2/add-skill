@@ -1,11 +1,11 @@
 {
-  "state": "ready",
-  "currentFeature": null,
-  "currentMilestone": null,
+  "state": "executing",
+  "currentFeature": "devin-type",
+  "currentMilestone": "1-core-registration",
   "completedFeatures": 0,
   "totalFeatures": 0,
   "milestonesSealed": [],
   "knownIssues": [],
   "createdAt": null,
-  "updatedAt": "2026-04-13T12:44:20Z"
+  "updatedAt": "2026-04-13T12:46:45Z"
 }
