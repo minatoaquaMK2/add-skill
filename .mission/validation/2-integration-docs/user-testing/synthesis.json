@@ -10,8 +10,11 @@
   },
   "failedAssertions": [],
   "blockedAssertions": [],
+  "previousRound": null,
   "appliedUpdates": [
-    { "target": "library/user-testing.md", "description": "Updated test count to 441 across 29 files, added milestone 2 runtime findings" }
-  ],
-  "previousRound": null
+    {
+      "description": "Updated test count to 441 across 29 files, added milestone 2 runtime findings",
+      "target": "library/user-testing.md"
+    }
+  ]
 }

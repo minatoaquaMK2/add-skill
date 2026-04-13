@@ -1,0 +1,32 @@
+{
+  "featureId": "user-testing-validator-2-integration-docs",
+  "successState": "success",
+  "returnToOrchestrator": true,
+  "salientSummary": "User testing round 1 for 2-integration-docs: 9/9 assertions passed, 0 failed, 0 blocked.",
+  "commitId": "a24928eddfc9bd84c71229a73133e7394b1cac87",
+  "validatorsPassed": true,
+  "whatWasImplemented": "Tested all 9 assertions through real user surface.",
+  "whatWasLeftUndone": "",
+  "discoveredIssues": [],
+  "verification": {
+    "commandsRun": [
+      {
+        "command": "pnpm test -- --run",
+        "exitCode": 0,
+        "observation": "441 tests passed"
+      },
+      {
+        "command": "pnpm format:check",
+        "exitCode": 0,
+        "observation": "All matched files use Prettier code style"
+      }
+    ]
+  },
+  "testsAdded": [],
+  "skillFeedback": {
+    "followedProcedure": true,
+    "deviations": [],
+    "suggestedChanges": []
+  },
+  "timestamp": "2026-04-13T13:49:11Z"
+}

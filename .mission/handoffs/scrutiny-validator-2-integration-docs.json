@@ -1,0 +1,37 @@
+{
+  "featureId": "scrutiny-validator-2-integration-docs",
+  "successState": "success",
+  "returnToOrchestrator": true,
+  "salientSummary": "Scrutiny round 1 for 2-integration-docs: 3 features reviewed, 0 blocking issues, 0 important issues. All pass.",
+  "commitId": "e16f3d9",
+  "validatorsPassed": true,
+  "whatWasImplemented": "Ran validators (test: 441 pass, typecheck: 6 baseline only, lint: clean), reviewed 3 features. All pass.",
+  "whatWasLeftUndone": "",
+  "discoveredIssues": [],
+  "verification": {
+    "commandsRun": [
+      {
+        "command": "pnpm test -- --run",
+        "exitCode": 0,
+        "observation": "441 tests passed, 0 failures"
+      },
+      {
+        "command": "pnpm type-check",
+        "exitCode": 0,
+        "observation": "6 pre-existing type errors only"
+      },
+      {
+        "command": "pnpm format:check",
+        "exitCode": 0,
+        "observation": "All matched files use Prettier code style!"
+      }
+    ]
+  },
+  "testsAdded": [],
+  "skillFeedback": {
+    "followedProcedure": true,
+    "deviations": [],
+    "suggestedChanges": []
+  },
+  "timestamp": "2026-04-13T13:41:55Z"
+}

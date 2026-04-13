@@ -12,8 +12,8 @@
  * Fulfills: VAL-INT-002, VAL-INT-003, VAL-INT-004, VAL-INT-005, VAL-INT-008, VAL-CROSS-001
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { mkdtemp, mkdir, rm, writeFile, lstat, readFile, readlink } from 'node:fs/promises';
+import { describe, it, expect, vi } from 'vitest';
+import { mkdtemp, mkdir, rm, writeFile, lstat, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir, homedir } from 'node:os';
 import {

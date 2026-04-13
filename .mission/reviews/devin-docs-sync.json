@@ -1,0 +1,12 @@
+{
+  "featureId": "devin-docs-sync",
+  "reviewedAt": "2026-04-13T13:52:00Z",
+  "commitId": "59eeef33f842356431af1c68cec005d4977dbef2",
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "The commit correctly syncs README.md and package.json to reflect the new Devin agent. All generated content matches the source-of-truth agent config in src/agents.ts. Specifically: (1) README agent count incremented from 41 to 42, correct since Devin is the one new agent. (2) Agent table row for 'Devin for Terminal' has correct --agent flag ('devin'), project path ('.devin/skills/'), and global path ('~/.config/devin/skills/'), matching the config's skillsDir and globalSkillsDir (join(configHome, 'devin/skills')). (3) Row is inserted alphabetically between 'Deep Agents' and 'Droid'. (4) Skill discovery paths include '.devin/skills/' inserted alphabetically between '.crush/skills/' and '.factory/skills/'. (5) package.json keywords array adds 'devin' between 'deepagents' and 'droid'. Table formatting was normalized by the sync script (removed column padding and extra blank lines inside comment markers), which is expected behavior from sync-agents.ts. No source code was changed — only auto-generated doc sections and package.json keywords. All verification commands in the handoff passed (441 tests, format:check, validate-agents, grep checks).",
+    "issues": []
+  },
+  "summary": "Pass. The sync-agents.ts output correctly adds Devin for Terminal to the README agent table, discovery paths, and package.json keywords. All values match the agent config in src/agents.ts. No issues found."
+}

@@ -1,6 +1,17 @@
 {
   "features": [
     {
+      "id": "fix-devin-installer-unused-imports",
+      "description": "Remove unused imports in tests/devin-installer.test.ts: 'beforeEach' and 'afterEach' from vitest (line 15), 'readlink' from node:fs/promises (line 16). These were flagged in the devin-installer-tests review.",
+      "skillName": "ts-agent-worker",
+      "milestone": "misc-1",
+      "preconditions": [],
+      "expectedBehavior": [],
+      "verificationSteps": [],
+      "fulfills": [],
+      "status": "in-progress"
+    },
+    {
       "id": "devin-type",
       "description": "Add 'devin' to AgentType union in src/types.ts",
       "skillName": "ts-agent-worker",
@@ -124,7 +135,9 @@
         "VAL-INT-008",
         "VAL-CROSS-001"
       ],
-      "status": "in-progress"
+      "status": "completed",
+      "commitId": "79aaa38d3015d1ce37647a2bf2dd1b6563cd1027",
+      "reviewed": true
     },
     {
       "id": "devin-docs-sync",
@@ -150,7 +163,9 @@
         "VAL-INT-006",
         "VAL-INT-007"
       ],
-      "status": "pending"
+      "status": "completed",
+      "commitId": "59eeef33f842356431af1c68cec005d4977dbef2",
+      "reviewed": true
     },
     {
       "id": "scrutiny-validator-1-core-registration",
@@ -177,6 +192,32 @@
       "fulfills": [],
       "status": "completed",
       "commitId": "686ef97a64fd4468d822ee2a6070e515a2664b28"
+    },
+    {
+      "id": "scrutiny-validator-2-integration-docs",
+      "description": "Scrutiny validation for milestone 2-integration-docs",
+      "skillName": "scrutiny",
+      "milestone": "2-integration-docs",
+      "preconditions": [],
+      "expectedBehavior": [],
+      "verificationSteps": [],
+      "fulfills": [],
+      "status": "completed",
+      "commitId": "e16f3d9"
+    },
+    {
+      "id": "user-testing-validator-2-integration-docs",
+      "description": "User-testing validation for milestone 2-integration-docs",
+      "skillName": "user-testing",
+      "milestone": "2-integration-docs",
+      "preconditions": [
+        "scrutiny-validator-2-integration-docs"
+      ],
+      "expectedBehavior": [],
+      "verificationSteps": [],
+      "fulfills": [],
+      "status": "completed",
+      "commitId": "a24928eddfc9bd84c71229a73133e7394b1cac87"
     }
   ]
 }

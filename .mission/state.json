@@ -1,13 +1,14 @@
 {
-  "state": "executing",
-  "currentFeature": "devin-installer-tests",
-  "currentMilestone": "2-integration-docs",
-  "completedFeatures": 6,
-  "totalFeatures": 8,
+  "state": "completed",
+  "currentFeature": "fix-devin-installer-unused-imports",
+  "currentMilestone": "misc-1",
+  "completedFeatures": 10,
+  "totalFeatures": 10,
   "milestonesSealed": [
-    "1-core-registration"
+    "1-core-registration",
+    "2-integration-docs"
   ],
   "knownIssues": [],
   "createdAt": null,
-  "updatedAt": "2026-04-13T13:22:46Z"
+  "updatedAt": "2026-04-13T13:56:23Z"
 }
