@@ -1,13 +1,13 @@
 {
   "state": "executing",
-  "currentFeature": "devin-discovery",
+  "currentFeature": "devin-installer-tests",
   "currentMilestone": "2-integration-docs",
-  "completedFeatures": 5,
+  "completedFeatures": 6,
   "totalFeatures": 8,
   "milestonesSealed": [
     "1-core-registration"
   ],
   "knownIssues": [],
   "createdAt": null,
-  "updatedAt": "2026-04-13T13:17:36Z"
+  "updatedAt": "2026-04-13T13:22:46Z"
 }

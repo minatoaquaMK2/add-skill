@@ -95,7 +95,9 @@
       "fulfills": [
         "VAL-INT-001"
       ],
-      "status": "in-progress"
+      "status": "completed",
+      "commitId": "847326c9002e28280706d5f9d7d40bbfd850c566",
+      "reviewed": true
     },
     {
       "id": "devin-installer-tests",
@@ -122,7 +124,7 @@
         "VAL-INT-008",
         "VAL-CROSS-001"
       ],
-      "status": "pending"
+      "status": "in-progress"
     },
     {
       "id": "devin-docs-sync",
