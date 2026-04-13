@@ -1,36 +1,43 @@
 {
   "assertions": {
-    "VAL-REG-005": {
+    "VAL-INT-005": {
       "status": "passed",
-      "evidence": "grep confirms 'devin' appears exactly once in AgentType (count=1), once as agents key (count=1). '.devin/skills' is unique among skillsDirs (count=1). 'devin/skills' is unique among globalSkillsDirs (count=1). 'Devin for Terminal' is unique displayName (count=1). bun scripts/validate-agents.ts passes (exit 0, 'All agents valid.'). Unit tests also verify uniqueness of key, displayName, skillsDir, globalSkillsDir.",
-      "validatedAtMilestone": "1-core-registration"
-    },
-    "VAL-INT-007": {
-      "status": "pending"
-    },
-    "VAL-INT-001": {
-      "status": "pending"
-    },
-    "VAL-CROSS-001": {
-      "status": "pending"
+      "evidence": "CLI accepts -a devin (VAL-INT-005): 'devin' is a key in Object.keys(agents). installSkillForAgent accepts 'devin' without error (result.success=true, result.error=undefined). isSkillInstalled works correctly with devin agent type (false before install, true after).",
+      "validatedAtMilestone": "2-integration-docs"
     },
     "VAL-REG-002": {
       "status": "passed",
       "evidence": "grep confirms: name='devin', displayName='Devin for Terminal', skillsDir='.devin/skills', globalSkillsDir=join(configHome,'devin/skills'), detectInstalled function present. XDG pattern confirmed. 17 unit tests in devin-agent.test.ts all pass, asserting all field values.",
       "validatedAtMilestone": "1-core-registration"
     },
-    "VAL-INT-005": {
-      "status": "pending"
+    "VAL-REG-003": {
+      "status": "passed",
+      "evidence": "Unit tests mock filesystem and verify both branches: 'returns true when ~/.config/devin exists' (mockExistsSync returns true for configHome/devin path) and 'returns false when ~/.config/devin does not exist' (mockExistsSync returns false). Both pass. detectInstalled uses existsSync(join(configHome, 'devin')) where configHome respects XDG_CONFIG_HOME.",
+      "validatedAtMilestone": "1-core-registration"
     },
-    "VAL-INT-004": {
-      "status": "pending"
+    "VAL-INT-007": {
+      "status": "passed",
+      "evidence": "package.json keywords (VAL-INT-007): bun scripts/sync-agents.ts completes with exit 0. jq '.keywords | index(\"devin\")' returns 19 — 'devin' is present in keywords array. grep '\"devin\"' package.json matches within keywords.",
+      "validatedAtMilestone": "2-integration-docs"
+    },
+    "VAL-INT-001": {
+      "status": "passed",
+      "evidence": "grep confirms join(searchPath, '.devin/skills') at line 166 of src/skills.ts in prioritySearchDirs. 5 unit tests in devin-discovery.test.ts pass: discoverSkills finds skills in .devin/skills/, multiple skills, alongside other agents, deduplication, and prioritySearchDirs source verification.",
+      "validatedAtMilestone": "2-integration-docs"
+    },
+    "VAL-CROSS-001": {
+      "status": "passed",
+      "evidence": "E2E consistency (VAL-CROSS-001): agents.devin.skillsDir matches getAgentBaseDir('devin', false, cwd). After symlink install: discoverSkills finds the skill in .devin/skills/, listInstalledSkills finds the skill with agents=['devin'], both functions find the same skill by name. 4 integration tests pass.",
+      "validatedAtMilestone": "2-integration-docs"
     },
     "VAL-INT-003": {
-      "status": "pending"
-    },
-    "VAL-REG-004": {
       "status": "passed",
-      "evidence": "Unit tests confirm: isUniversalAgent('devin') returns false (skillsDir is '.devin/skills' not '.agents/skills'). 'devin' appears in getNonUniversalAgents() but NOT in getUniversalAgents(). All 3 classification tests pass.",
+      "evidence": "Copy install (VAL-INT-003): installSkillForAgent with mode=copy writes directly to .devin/skills/<name>. No canonical .agents/skills/<name> directory created. result.success=true, result.mode=copy, result.canonicalPath=undefined. SKILL.md exists at .devin/skills/<name>/SKILL.md.",
+      "validatedAtMilestone": "2-integration-docs"
+    },
+    "VAL-REG-006": {
+      "status": "passed",
+      "evidence": "bun scripts/validate-agents.ts exits with code 0. Output: 'Validating agents...\\nAll agents valid.' Devin agent passes all validation checks.",
       "validatedAtMilestone": "1-core-registration"
     },
     "VAL-REG-001": {
@@ -38,23 +45,34 @@
       "evidence": "grep -c \"'devin'\" src/types.ts returns 1; pnpm type-check shows 6 pre-existing errors only, no new errors. 'devin' exists at line 17 of types.ts in AgentType union.",
       "validatedAtMilestone": "1-core-registration"
     },
-    "VAL-INT-008": {
-      "status": "pending"
-    },
-    "VAL-REG-006": {
+    "VAL-INT-002": {
       "status": "passed",
-      "evidence": "bun scripts/validate-agents.ts exits with code 0. Output: 'Validating agents...\\nAll agents valid.' Devin agent passes all validation checks.",
-      "validatedAtMilestone": "1-core-registration"
+      "evidence": "17 tests in devin-installer.test.ts pass. Symlink install (VAL-INT-002): installSkillForAgent with mode=symlink creates canonical at .agents/skills/<name> and symlink at .devin/skills/<name>. result.success=true, result.mode=symlink. Symlink resolves to canonical. canonicalPath points to .agents/skills/<name>.",
+      "validatedAtMilestone": "2-integration-docs"
+    },
+    "VAL-INT-008": {
+      "status": "passed",
+      "evidence": "listInstalledSkills with Devin (VAL-INT-008): listInstalledSkills scans .devin/skills/ and attributes found skills to 'devin'. Test creates skill in .devin/skills/, calls listInstalledSkills, verifies skill.agents contains 'devin'. Also verifies symlink-installed skills found via listInstalledSkills.",
+      "validatedAtMilestone": "2-integration-docs"
     },
     "VAL-INT-006": {
-      "status": "pending"
-    },
-    "VAL-INT-002": {
-      "status": "pending"
-    },
-    "VAL-REG-003": {
       "status": "passed",
-      "evidence": "Unit tests mock filesystem and verify both branches: 'returns true when ~/.config/devin exists' (mockExistsSync returns true for configHome/devin path) and 'returns false when ~/.config/devin does not exist' (mockExistsSync returns false). Both pass. detectInstalled uses existsSync(join(configHome, 'devin')) where configHome respects XDG_CONFIG_HOME.",
+      "evidence": "README updated (VAL-INT-006): bun scripts/sync-agents.ts completes with exit 0. grep confirms 'Devin for Terminal' at line 243 in agent table: '| Devin for Terminal | devin | .devin/skills/ | ~/.config/devin/skills/ |'. grep confirms '.devin/skills/' at line 349 in discovery paths section.",
+      "validatedAtMilestone": "2-integration-docs"
+    },
+    "VAL-REG-005": {
+      "status": "passed",
+      "evidence": "grep confirms 'devin' appears exactly once in AgentType (count=1), once as agents key (count=1). '.devin/skills' is unique among skillsDirs (count=1). 'devin/skills' is unique among globalSkillsDirs (count=1). 'Devin for Terminal' is unique displayName (count=1). bun scripts/validate-agents.ts passes (exit 0, 'All agents valid.'). Unit tests also verify uniqueness of key, displayName, skillsDir, globalSkillsDir.",
+      "validatedAtMilestone": "1-core-registration"
+    },
+    "VAL-INT-004": {
+      "status": "passed",
+      "evidence": "Global install paths (VAL-INT-004): getAgentBaseDir('devin', true) returns ~/.config/devin/skills. agents.devin.globalSkillsDir is defined (string type). Project-level getAgentBaseDir returns <cwd>/.devin/skills. Non-universal agent confirmed — path differs from canonical.",
+      "validatedAtMilestone": "2-integration-docs"
+    },
+    "VAL-REG-004": {
+      "status": "passed",
+      "evidence": "Unit tests confirm: isUniversalAgent('devin') returns false (skillsDir is '.devin/skills' not '.agents/skills'). 'devin' appears in getNonUniversalAgents() but NOT in getUniversalAgents(). All 3 classification tests pass.",
       "validatedAtMilestone": "1-core-registration"
     }
   }

@@ -1,0 +1,81 @@
+{
+  "groupId": "cli-grep-scripts",
+  "testedAt": "2025-01-28T21:45:00Z",
+  "isolation": {
+    "credentials": "none",
+    "url": "local filesystem",
+    "port": null
+  },
+  "toolsUsed": ["grep", "bun", "jq"],
+  "assertions": [
+    {
+      "id": "VAL-INT-001",
+      "title": ".devin/skills in skill discovery priority paths (grep verification)",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "grep -n '.devin/skills' src/skills.ts",
+          "expected": "Line showing join(searchPath, '.devin/skills') in prioritySearchDirs",
+          "observed": "166:    join(searchPath, '.devin/skills'),"
+        }
+      ],
+      "evidence": {
+        "commands": "grep -n '.devin/skills' src/skills.ts -> line 166",
+        "output": ".mission/evidence/2-integration-docs/cli-grep-scripts/VAL-INT-001-grep.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-INT-006",
+      "title": "README updated with Devin",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "bun scripts/sync-agents.ts",
+          "expected": "Script completes successfully, exit code 0",
+          "observed": "README.md updated, package.json updated, EXIT CODE: 0"
+        },
+        {
+          "action": "grep -n 'Devin for Terminal' README.md",
+          "expected": "Devin for Terminal appears in agent table",
+          "observed": "243:| Devin for Terminal | `devin` | `.devin/skills/` | `~/.config/devin/skills/` |"
+        },
+        {
+          "action": "grep -n '.devin/skills' README.md",
+          "expected": ".devin/skills appears in discovery paths section",
+          "observed": "Line 243 (agent table) and line 349 (.devin/skills/ in discovery paths list)"
+        }
+      ],
+      "evidence": {
+        "commands": "bun scripts/sync-agents.ts -> exit 0; grep confirms Devin for Terminal at line 243 and .devin/skills/ at line 349",
+        "output": ".mission/evidence/2-integration-docs/cli-grep-scripts/VAL-INT-006-readme.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-INT-007",
+      "title": "package.json keywords updated",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "bun scripts/sync-agents.ts",
+          "expected": "Script completes successfully",
+          "observed": "README.md updated, package.json updated, EXIT CODE: 0"
+        },
+        {
+          "action": "jq '.keywords' package.json | grep -i devin",
+          "expected": "\"devin\" appears in keywords array",
+          "observed": "\"devin\", found at index 19 in keywords array"
+        }
+      ],
+      "evidence": {
+        "commands": "jq '.keywords | index(\"devin\")' package.json -> 19",
+        "output": ".mission/evidence/2-integration-docs/cli-grep-scripts/VAL-INT-007-keywords.txt"
+      },
+      "issues": null
+    }
+  ],
+  "frictions": [],
+  "blockers": [],
+  "summary": "Tested 3 assertions via grep/scripts: 3 passed (VAL-INT-001 grep, VAL-INT-006, VAL-INT-007). All grep checks confirm .devin/skills in prioritySearchDirs, Devin for Terminal in README, and devin keyword in package.json."
+}

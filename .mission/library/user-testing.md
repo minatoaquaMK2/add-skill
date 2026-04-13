@@ -5,7 +5,7 @@
 - **No browser or API surface** — this is a build-time-only change.
 
 ## Validation Tools
-- `pnpm test -- --run` — Vitest test suite (419 tests as of milestone 1-core-registration)
+- `pnpm test -- --run` — Vitest test suite (441 tests as of milestone 2-integration-docs)
 - `pnpm type-check` — TypeScript compiler
 - `pnpm format:check` — Prettier formatting
 - `bun scripts/validate-agents.ts` — Agent metadata validation
@@ -23,3 +23,13 @@
 - **Type-check baseline:** 6 pre-existing errors in git.ts, wellknown.ts, skills.ts — do not count these as regressions
 - **No services needed:** All validation is command-based (grep, test runner, script runner)
 - **No frictions encountered** during milestone 1 validation
+
+## Runtime Findings (milestone 2-integration-docs)
+- **Test count:** 441 tests across 29 files (up from 419 — 22 new tests in `tests/devin-discovery.test.ts` (5) and `tests/devin-installer.test.ts` (17))
+- **Test duration:** ~17s total (unchanged)
+- **Type-check baseline:** Still 6 pre-existing errors — no new errors introduced
+- **Format-check:** Passes cleanly
+- **sync-agents.ts:** Runs successfully, updates README.md and package.json
+- **validate-agents.ts:** Passes with "All agents valid."
+- **No services needed:** All validation is command-based
+- **No frictions encountered** during milestone 2 validation

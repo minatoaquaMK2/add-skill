@@ -1,0 +1,6 @@
+
+> skills@1.5.0 format:check /Users/eric/Documents/Project/skills
+> prettier --check "src/**/*.ts" "scripts/**/*.ts"
+
+Checking formatting...
+All matched files use Prettier code style!

@@ -1,0 +1,17 @@
+
+> skills@1.5.0 type-check /Users/eric/Documents/Project/skills
+> tsc --noEmit
+
+src/git.ts(24,15): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(baseDir?: string | undefined, options?: Partial<SimpleGitOptions> | undefined): SimpleGit', gave the following error.
+    Argument of type '{ timeout: { block: number; }; env: { GIT_TERMINAL_PROMPT: string; TZ?: string | undefined; NODE_ENV?: string; }; }' is not assignable to parameter of type 'string'.
+  Overload 2 of 3, '(baseDir: string): SimpleGit', gave the following error.
+    Argument of type '{ timeout: { block: number; }; env: { GIT_TERMINAL_PROMPT: string; TZ?: string | undefined; NODE_ENV?: string; }; }' is not assignable to parameter of type 'string'.
+  Overload 3 of 3, '(options: Partial<SimpleGitOptions>): SimpleGit', gave the following error.
+    Object literal may only specify known properties, and 'env' does not exist in type 'Partial<SimpleGitOptions>'.
+src/providers/wellknown.ts(312,9): error TS2322: Type '{}' is not assignable to type 'string'.
+src/providers/wellknown.ts(313,9): error TS2322: Type '{}' is not assignable to type 'string'.
+src/providers/wellknown.ts(317,9): error TS2322: Type 'unknown' is not assignable to type 'Record<string, unknown> | undefined'.
+src/skills.ts(48,39): error TS2339: Property 'internal' does not exist on type '{}'.
+src/skills.ts(58,7): error TS2322: Type 'unknown' is not assignable to type 'Record<string, unknown> | undefined'.
+ ELIFECYCLE  Command failed with exit code 2.

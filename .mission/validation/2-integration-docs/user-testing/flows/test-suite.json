@@ -1,0 +1,134 @@
+{
+  "groupId": "test-suite",
+  "testedAt": "2025-01-28T21:45:30Z",
+  "isolation": {
+    "credentials": "none",
+    "url": "local filesystem (temp dirs for each test)",
+    "port": null
+  },
+  "toolsUsed": ["pnpm test", "pnpm type-check", "pnpm format:check"],
+  "assertions": [
+    {
+      "id": "VAL-INT-001",
+      "title": ".devin/skills in skill discovery priority paths (test verification)",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "pnpm test tests/devin-discovery.test.ts -- --run",
+          "expected": "5 tests pass: discoverSkills finds skills in .devin/skills/",
+          "observed": "5 tests passed in 13ms. Tests verify: single skill discovery, multiple skills, alongside other agents, deduplication, and prioritySearchDirs source check."
+        }
+      ],
+      "evidence": {
+        "commands": "pnpm test tests/devin-discovery.test.ts -- --run -> 5 passed, exit 0",
+        "output": ".mission/evidence/2-integration-docs/test-suite/VAL-INT-001-discovery-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-INT-002",
+      "title": "Symlink installation for Devin",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "pnpm test tests/devin-installer.test.ts -- --run (Devin symlink installation tests)",
+          "expected": "installSkillForAgent with mode=symlink creates .agents/skills/<name> canonical + symlink at .devin/skills/<name>, result.success=true, result.mode=symlink",
+          "observed": "2 tests passed: (1) copies skill to .agents/skills/<name> and symlinks from .devin/skills/<name>, verifies symlink target resolves, (2) returns canonicalPath pointing to .agents/skills/<name>"
+        }
+      ],
+      "evidence": {
+        "commands": "pnpm test tests/devin-installer.test.ts -- --run -> 17 passed (includes VAL-INT-002 group), exit 0",
+        "output": ".mission/evidence/2-integration-docs/test-suite/VAL-INT-002-008-installer-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-INT-003",
+      "title": "Copy installation for Devin",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "pnpm test tests/devin-installer.test.ts -- --run (Devin copy installation tests)",
+          "expected": "installSkillForAgent with mode=copy writes directly to .devin/skills/<name>, no canonical directory, result.success=true, result.mode=copy",
+          "observed": "2 tests passed: (1) writes directly to .devin/skills/<name> without canonical directory, verifies .agents/skills/<name> does NOT exist, (2) returns undefined canonicalPath for copy mode"
+        }
+      ],
+      "evidence": {
+        "commands": "pnpm test tests/devin-installer.test.ts -- --run -> 17 passed (includes VAL-INT-003 group), exit 0",
+        "output": ".mission/evidence/2-integration-docs/test-suite/VAL-INT-002-008-installer-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-INT-004",
+      "title": "Global installation paths",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "pnpm test tests/devin-installer.test.ts -- --run (Devin global installation paths tests)",
+          "expected": "getAgentBaseDir('devin', true) returns ~/.config/devin/skills, agents.devin.globalSkillsDir is defined",
+          "observed": "4 tests passed: (1) getAgentBaseDir returns ~/.config/devin/skills for global, (2) agents.devin.globalSkillsDir is defined and is a string, (3) returns <cwd>/.devin/skills for project-level, (4) non-universal agent so path differs from canonical"
+        }
+      ],
+      "evidence": {
+        "commands": "pnpm test tests/devin-installer.test.ts -- --run -> 17 passed (includes VAL-INT-004 group), exit 0",
+        "output": ".mission/evidence/2-integration-docs/test-suite/VAL-INT-002-008-installer-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-INT-005",
+      "title": "CLI accepts -a devin",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "pnpm test tests/devin-installer.test.ts -- --run (Devin agent recognition tests)",
+          "expected": "'devin' is a key in agents record, installSkillForAgent accepts devin without error, isSkillInstalled works with devin",
+          "observed": "3 tests passed: (1) 'devin' is a key in agents record, (2) installSkillForAgent accepts devin without error (result.success=true, result.error=undefined), (3) isSkillInstalled works correctly before/after install"
+        }
+      ],
+      "evidence": {
+        "commands": "pnpm test tests/devin-installer.test.ts -- --run -> 17 passed (includes VAL-INT-005 group), exit 0",
+        "output": ".mission/evidence/2-integration-docs/test-suite/VAL-INT-002-008-installer-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-INT-008",
+      "title": "skills list shows Devin-attributed skills",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "pnpm test tests/devin-installer.test.ts -- --run (listInstalledSkills with Devin tests)",
+          "expected": "listInstalledSkills scans .devin/skills/ and attributes found skills to 'devin'",
+          "observed": "2 tests passed: (1) finds skills in .devin/skills/ and attributes them to devin (skill.agents contains 'devin'), (2) finds symlink-installed skills via listInstalledSkills"
+        }
+      ],
+      "evidence": {
+        "commands": "pnpm test tests/devin-installer.test.ts -- --run -> 17 passed (includes VAL-INT-008 group), exit 0",
+        "output": ".mission/evidence/2-integration-docs/test-suite/VAL-INT-002-008-installer-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-CROSS-001",
+      "title": "End-to-end config + installer + discovery consistency",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "pnpm test tests/devin-installer.test.ts -- --run (End-to-end consistency tests)",
+          "expected": "agents.devin.skillsDir matches getAgentBaseDir path; after install, both discoverSkills and listInstalledSkills find the skill",
+          "observed": "4 tests passed: (1) agents.devin.skillsDir matches getAgentBaseDir path, (2) after symlink install discoverSkills finds the skill, (3) after symlink install listInstalledSkills finds the skill, (4) both discoverSkills and listInstalledSkills find the same skill after install"
+        }
+      ],
+      "evidence": {
+        "commands": "pnpm test tests/devin-installer.test.ts -- --run -> 17 passed (includes VAL-CROSS-001 group), exit 0",
+        "output": ".mission/evidence/2-integration-docs/test-suite/VAL-INT-002-008-installer-tests.txt"
+      },
+      "issues": null
+    }
+  ],
+  "frictions": [],
+  "blockers": [],
+  "summary": "Tested 7 assertions via test suite: 7 passed (VAL-INT-001 tests, VAL-INT-002, VAL-INT-003, VAL-INT-004, VAL-INT-005, VAL-INT-008, VAL-CROSS-001). Full test suite: 441 tests passed across 29 files. Type-check: only 6 pre-existing errors (no new). Format-check: passed."
+}

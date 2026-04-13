@@ -1,0 +1,100 @@
+
+> skills@1.5.0 test /Users/eric/Documents/Project/skills
+> vitest -- --run
+
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/eric/Documents/Project/skills[39m
+
+ [32m✓[39m src/init.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 1557[2mms[22m[39m
+     [33m[2m✓[22m[39m should allow multiple skills in same directory [33m 482[2mms[22m[39m
+     [33m[2m✓[22m[39m should show error if skill already exists [33m 426[2mms[22m[39m
+ [32m✓[39m tests/local-lock.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m tests/list-installed.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+ [32m✓[39m tests/plugin-manifest-discovery.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 100[2mms[22m[39m
+[?25l│
+◇  Found 1 unique installed skill(s)
+[?25h[?25l│
+◇  Removal process complete
+[?25h│
+◆  Successfully removed 1 skill(s)
+│
+└  Done!
+
+[90mstdout[2m | tests/remove-canonical.test.ts[2m > [22m[2mremoveCommand canonical protection[2m > [22m[2mshould NOT remove canonical storage if other agents still have the skill installed
+[22m[39m
+
+[?25l│
+◇  Found 1 unique installed skill(s)
+[?25h[?25l│
+◇  Removal process complete
+[?25h│
+◆  Successfully removed 1 skill(s)
+│
+└  Done!
+
+[90mstdout[2m | tests/remove-canonical.test.ts[2m > [22m[2mremoveCommand canonical protection[2m > [22m[2mshould remove canonical storage if NO other agents are using it
+[22m[39m
+
+ [32m✓[39m tests/remove-canonical.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 121[2mms[22m[39m
+ [32m✓[39m tests/full-depth-discovery.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 80[2mms[22m[39m
+ [32m✓[39m tests/installer-symlink.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m tests/skill-matching.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/dist.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3313[2mms[22m[39m
+     [33m[2m✓[22m[39m builds and runs without errors [33m 3312[2mms[22m[39m
+ [32m✓[39m tests/plugin-grouping.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m tests/devin-installer.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 213[2mms[22m[39m
+ [32m✓[39m tests/devin-discovery.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m tests/devin-agent.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/wellknown-provider.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m src/list.test.ts [2m([22m[2m28 tests[22m[2m)[22m[33m 3853[2mms[22m[39m
+       [33m[2m✓[22m[39m should run ls alias [33m 305[2mms[22m[39m
+ [32m✓[39m tests/sanitize-name.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/source-parser.test.ts [2m([22m[2m68 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m tests/subpath-traversal.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/cross-platform-paths.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/source-parser.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/add-prompt.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/skill-path.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/xdg-config-paths.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m src/update-source.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+ [32m✓[39m tests/openclaw-paths.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+ [32m✓[39m src/cli.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 6127[2mms[22m[39m
+       [33m[2m✓[22m[39m should show same output for -h alias [33m 432[2mms[22m[39m
+       [33m[2m✓[22m[39m should not display logo for check command [33m 2176[2mms[22m[39m
+       [33m[2m✓[22m[39m should not display logo for update command [33m 2165[2mms[22m[39m
+ [32m✓[39m src/add.test.ts [2m([22m[2m32 tests[22m[2m)[22m[33m 7093[2mms[22m[39m
+     [33m[2m✓[22m[39m should support add command aliases (a, i, install) [33m 511[2mms[22m[39m
+       [33m[2m✓[22m[39m should show non-internal skills alongside internal when env var is set [33m 408[2mms[22m[39m
+     [33m[2m✓[22m[39m should not block non-openclaw sources [33m 2794[2mms[22m[39m
+ [32m✓[39m tests/sync.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 11259[2mms[22m[39m
+       [33m[2m✓[22m[39m should find SKILL.md at package root [33m 1294[2mms[22m[39m
+       [33m[2m✓[22m[39m should find skills in skills/ subdirectory [33m 1039[2mms[22m[39m
+       [33m[2m✓[22m[39m should find skills in scoped packages [33m 1079[2mms[22m[39m
+       [33m[2m✓[22m[39m should write skills-lock.json after sync [33m 1124[2mms[22m[39m
+       [33m[2m✓[22m[39m should not have timestamps in lock entries [33m 1000[2mms[22m[39m
+       [33m[2m✓[22m[39m should sort skills alphabetically in lock file [33m 944[2mms[22m[39m
+       [33m[2m✓[22m[39m should skip unchanged skills on second sync [33m 1190[2mms[22m[39m
+       [33m[2m✓[22m[39m should reinstall when --force is used [33m 1870[2mms[22m[39m
+       [33m[2m✓[22m[39m should discover multiple skills in skills/ subdirectory [33m 985[2mms[22m[39m
+ [32m✓[39m src/remove.test.ts [2m([22m[2m24 tests[22m[2m)[22m[33m 16456[2mms[22m[39m
+       [33m[2m✓[22m[39m should remove specific skill by name with -y flag [33m 1258[2mms[22m[39m
+       [33m[2m✓[22m[39m should remove multiple skills by name [33m 983[2mms[22m[39m
+       [33m[2m✓[22m[39m should remove all skills with --all flag [33m 1100[2mms[22m[39m
+       [33m[2m✓[22m[39m should be case-insensitive when matching skill names [33m 1044[2mms[22m[39m
+       [33m[2m✓[22m[39m should remove only the specified skill and leave others [33m 942[2mms[22m[39m
+       [33m[2m✓[22m[39m should accept valid agent names [33m 916[2mms[22m[39m
+       [33m[2m✓[22m[39m should accept multiple agent names [33m 958[2mms[22m[39m
+       [33m[2m✓[22m[39m should support "rm" alias [33m 893[2mms[22m[39m
+       [33m[2m✓[22m[39m should support "r" alias [33m 916[2mms[22m[39m
+       [33m[2m✓[22m[39m should handle skill names with special characters [33m 939[2mms[22m[39m
+       [33m[2m✓[22m[39m should handle removing last remaining skill [33m 947[2mms[22m[39m
+       [33m[2m✓[22m[39m should handle directory without SKILL.md file [33m 1151[2mms[22m[39m
+       [33m[2m✓[22m[39m should parse --yes flag [33m 921[2mms[22m[39m
+       [33m[2m✓[22m[39m should parse -a as agent [33m 896[2mms[22m[39m
+       [33m[2m✓[22m[39m should handle multiple values for --agent [33m 937[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m29 passed[39m[22m[90m (29)[39m
+[2m      Tests [22m [1m[32m441 passed[39m[22m[90m (441)[39m
+[2m   Start at [22m 21:45:33
+[2m   Duration [22m 16.65s[2m (transform 793ms, setup 0ms, import 1.64s, tests 50.48s, environment 2ms)[22m
+
