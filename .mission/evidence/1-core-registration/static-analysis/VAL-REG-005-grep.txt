@@ -1,0 +1,8 @@
+=== VAL-REG-005: Uniqueness checks ===
+grep -c "'devin'" src/types.ts → 1 (exactly once in AgentType)
+grep -c "^  devin:" src/agents.ts → 1 (exactly once as agents key)
+grep -c "skillsDir.*'\.devin/skills'" src/agents.ts → 1 (unique skillsDir)
+grep -c "globalSkillsDir.*'devin/skills'" src/agents.ts → 1 (unique globalSkillsDir)
+grep -c "'Devin for Terminal'" src/agents.ts → 1 (unique displayName)
+
+No duplicates or collisions found.

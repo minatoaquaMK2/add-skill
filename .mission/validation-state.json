@@ -1,30 +1,11 @@
 {
   "assertions": {
-    "VAL-INT-004": {
-      "status": "pending"
-    },
-    "VAL-REG-002": {
-      "status": "pending"
-    },
-    "VAL-INT-002": {
-      "status": "pending"
-    },
-    "VAL-REG-004": {
-      "status": "pending"
+    "VAL-REG-005": {
+      "status": "passed",
+      "evidence": "grep confirms 'devin' appears exactly once in AgentType (count=1), once as agents key (count=1). '.devin/skills' is unique among skillsDirs (count=1). 'devin/skills' is unique among globalSkillsDirs (count=1). 'Devin for Terminal' is unique displayName (count=1). bun scripts/validate-agents.ts passes (exit 0, 'All agents valid.'). Unit tests also verify uniqueness of key, displayName, skillsDir, globalSkillsDir.",
+      "validatedAtMilestone": "1-core-registration"
     },
     "VAL-INT-007": {
-      "status": "pending"
-    },
-    "VAL-INT-005": {
-      "status": "pending"
-    },
-    "VAL-REG-006": {
-      "status": "pending"
-    },
-    "VAL-REG-003": {
-      "status": "pending"
-    },
-    "VAL-INT-006": {
       "status": "pending"
     },
     "VAL-INT-001": {
@@ -33,17 +14,48 @@
     "VAL-CROSS-001": {
       "status": "pending"
     },
-    "VAL-INT-008": {
+    "VAL-REG-002": {
+      "status": "passed",
+      "evidence": "grep confirms: name='devin', displayName='Devin for Terminal', skillsDir='.devin/skills', globalSkillsDir=join(configHome,'devin/skills'), detectInstalled function present. XDG pattern confirmed. 17 unit tests in devin-agent.test.ts all pass, asserting all field values.",
+      "validatedAtMilestone": "1-core-registration"
+    },
+    "VAL-INT-005": {
       "status": "pending"
     },
-    "VAL-REG-005": {
+    "VAL-INT-004": {
       "status": "pending"
     },
     "VAL-INT-003": {
       "status": "pending"
     },
+    "VAL-REG-004": {
+      "status": "passed",
+      "evidence": "Unit tests confirm: isUniversalAgent('devin') returns false (skillsDir is '.devin/skills' not '.agents/skills'). 'devin' appears in getNonUniversalAgents() but NOT in getUniversalAgents(). All 3 classification tests pass.",
+      "validatedAtMilestone": "1-core-registration"
+    },
     "VAL-REG-001": {
+      "status": "passed",
+      "evidence": "grep -c \"'devin'\" src/types.ts returns 1; pnpm type-check shows 6 pre-existing errors only, no new errors. 'devin' exists at line 17 of types.ts in AgentType union.",
+      "validatedAtMilestone": "1-core-registration"
+    },
+    "VAL-INT-008": {
       "status": "pending"
+    },
+    "VAL-REG-006": {
+      "status": "passed",
+      "evidence": "bun scripts/validate-agents.ts exits with code 0. Output: 'Validating agents...\\nAll agents valid.' Devin agent passes all validation checks.",
+      "validatedAtMilestone": "1-core-registration"
+    },
+    "VAL-INT-006": {
+      "status": "pending"
+    },
+    "VAL-INT-002": {
+      "status": "pending"
+    },
+    "VAL-REG-003": {
+      "status": "passed",
+      "evidence": "Unit tests mock filesystem and verify both branches: 'returns true when ~/.config/devin exists' (mockExistsSync returns true for configHome/devin path) and 'returns false when ~/.config/devin does not exist' (mockExistsSync returns false). Both pass. detectInstalled uses existsSync(join(configHome, 'devin')) where configHome respects XDG_CONFIG_HOME.",
+      "validatedAtMilestone": "1-core-registration"
     }
   }
 }

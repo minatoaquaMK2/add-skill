@@ -1,0 +1,17 @@
+{
+  "milestone": "1-core-registration",
+  "round": 1,
+  "status": "pass",
+  "assertionsSummary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "blocked": 0
+  },
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "appliedUpdates": [
+    { "target": "library/user-testing.md", "description": "Updated test count to 419, added runtime findings for milestone 1-core-registration" }
+  ],
+  "previousRound": null
+}

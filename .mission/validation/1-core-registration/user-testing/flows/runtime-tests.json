@@ -1,0 +1,81 @@
+{
+  "groupId": "runtime-tests",
+  "testedAt": "2026-04-13T13:14:23Z",
+  "isolation": {
+    "credentials": "none",
+    "url": "n/a",
+    "port": null
+  },
+  "toolsUsed": ["shell", "pnpm test", "bun"],
+  "assertions": [
+    {
+      "id": "VAL-REG-002",
+      "title": "Agent config object completeness (unit tests)",
+      "status": "pass",
+      "steps": [
+        { "action": "pnpm test -- --run", "expected": "All tests pass including devin-agent.test.ts config assertions", "observed": "419 tests passed, 0 failed. devin-agent.test.ts: 17/17 passed. Config fields verified: name, displayName, skillsDir, globalSkillsDir, detectInstalled, getAgentConfig." }
+      ],
+      "evidence": {
+        "commands": "pnpm test -- --run -> 419 passed, 0 failed",
+        "output": ".mission/evidence/1-core-registration/runtime-tests/VAL-REG-002-003-004-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-REG-003",
+      "title": "Detection function correctness",
+      "status": "pass",
+      "steps": [
+        { "action": "pnpm test -- --run (devin-agent.test.ts detection tests)", "expected": "Both branches tested: true when dir exists, false when not", "observed": "Both tests passed: 'returns true when ~/.config/devin exists' and 'returns false when ~/.config/devin does not exist' — uses vi.mock for fs.existsSync" }
+      ],
+      "evidence": {
+        "commands": "pnpm test -- --run -> detection tests pass",
+        "output": ".mission/evidence/1-core-registration/runtime-tests/VAL-REG-002-003-004-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-REG-004",
+      "title": "Non-universal classification",
+      "status": "pass",
+      "steps": [
+        { "action": "pnpm test -- --run (devin-agent.test.ts classification tests)", "expected": "isUniversalAgent('devin') returns false, 'devin' in getNonUniversalAgents(), 'devin' not in getUniversalAgents()", "observed": "All 3 classification tests passed" }
+      ],
+      "evidence": {
+        "commands": "pnpm test -- --run -> classification tests pass",
+        "output": ".mission/evidence/1-core-registration/runtime-tests/VAL-REG-002-003-004-tests.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-REG-005",
+      "title": "No duplicate names or conflicting directories (validate-agents + unit tests)",
+      "status": "pass",
+      "steps": [
+        { "action": "bun scripts/validate-agents.ts", "expected": "Exit 0, 'All agents valid.'", "observed": "Exit 0, output: 'Validating agents...\nAll agents valid.'" },
+        { "action": "pnpm test -- --run (devin-agent.test.ts no-duplicates tests)", "expected": "All uniqueness tests pass", "observed": "4 uniqueness tests passed: key unique, displayName unique, skillsDir unique, globalSkillsDir unique" }
+      ],
+      "evidence": {
+        "commands": "bun scripts/validate-agents.ts -> exit 0; pnpm test -> uniqueness tests pass",
+        "output": ".mission/evidence/1-core-registration/runtime-tests/VAL-REG-005-006-validate.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-REG-006",
+      "title": "validate-agents.ts passes",
+      "status": "pass",
+      "steps": [
+        { "action": "bun scripts/validate-agents.ts", "expected": "Exit code 0, output contains 'All agents valid.'", "observed": "Exit code 0, output: 'Validating agents...\nAll agents valid.'" }
+      ],
+      "evidence": {
+        "commands": "bun scripts/validate-agents.ts -> exit 0, 'All agents valid.'",
+        "output": ".mission/evidence/1-core-registration/runtime-tests/VAL-REG-005-006-validate.txt"
+      },
+      "issues": null
+    }
+  ],
+  "frictions": [],
+  "blockers": [],
+  "summary": "Tested 5 assertions (VAL-REG-002 tests, VAL-REG-003, VAL-REG-004, VAL-REG-005 validate, VAL-REG-006): all 5 passed. Full test suite: 419/419 passed."
+}

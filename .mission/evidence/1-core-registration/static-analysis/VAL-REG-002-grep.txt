@@ -1,0 +1,15 @@
+=== VAL-REG-002: grep -A 20 "devin:" src/agents.ts ===
+  devin: {
+    name: 'devin',
+    displayName: 'Devin for Terminal',
+    skillsDir: '.devin/skills',
+    globalSkillsDir: join(configHome, 'devin/skills'),
+    detectInstalled: async () => {
+      return existsSync(join(configHome, 'devin'));
+    },
+  },
+
+=== configHome definition ===
+const configHome = xdgConfig ?? join(home, '.config');
+
+All fields present and correct. Follows XDG pattern used by Goose/Amp/OpenCode.

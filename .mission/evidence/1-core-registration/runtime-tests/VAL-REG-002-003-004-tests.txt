@@ -1,0 +1,23 @@
+=== pnpm test -- --run ===
+27 test files, 419 tests passed, 0 failed
+
+=== tests/devin-agent.test.ts (17 tests, all passed) ===
+
+VAL-REG-002 coverage (config completeness):
+- "exists in agents record" → PASS
+- "has correct name" → 'devin' PASS
+- "has correct displayName" → 'Devin for Terminal' PASS
+- "has correct skillsDir" → '.devin/skills' PASS
+- "has correct globalSkillsDir (XDG-style)" → join(configHome, 'devin', 'skills') PASS
+- "does NOT use platform-specific paths for globalSkillsDir" → PASS
+- "has a detectInstalled function" → PASS
+- "is accessible via getAgentConfig" → PASS
+
+VAL-REG-003 coverage (detection function):
+- "returns true when ~/.config/devin exists" → mocked, PASS
+- "returns false when ~/.config/devin does not exist" → mocked, PASS
+
+VAL-REG-004 coverage (non-universal classification):
+- "isUniversalAgent returns false for devin" → PASS
+- "is included in getNonUniversalAgents" → PASS
+- "is NOT included in getUniversalAgents" → PASS

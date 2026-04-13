@@ -1,0 +1,61 @@
+{
+  "groupId": "static-analysis",
+  "testedAt": "2026-04-13T13:14:32Z",
+  "isolation": {
+    "credentials": "none",
+    "url": "n/a",
+    "port": null
+  },
+  "toolsUsed": ["grep", "shell"],
+  "assertions": [
+    {
+      "id": "VAL-REG-001",
+      "title": "'devin' exists in AgentType union",
+      "status": "pass",
+      "steps": [
+        { "action": "grep -c \"'devin'\" src/types.ts", "expected": "1", "observed": "1" },
+        { "action": "grep -n \"'devin'\" src/types.ts", "expected": "'devin' in AgentType union", "observed": "17:  | 'devin'" },
+        { "action": "pnpm type-check", "expected": "No new errors beyond baseline 6", "observed": "6 pre-existing errors only (git.ts, wellknown.ts, skills.ts). No new errors." }
+      ],
+      "evidence": {
+        "commands": "grep -c \"'devin'\" src/types.ts -> 1; pnpm type-check -> 6 baseline errors only",
+        "output": ".mission/evidence/1-core-registration/static-analysis/VAL-REG-001-grep.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-REG-002",
+      "title": "Agent config object completeness (grep verification)",
+      "status": "pass",
+      "steps": [
+        { "action": "grep -A 20 'devin:' src/agents.ts", "expected": "All config fields present", "observed": "name: 'devin', displayName: 'Devin for Terminal', skillsDir: '.devin/skills', globalSkillsDir: join(configHome, 'devin/skills'), detectInstalled function present" },
+        { "action": "grep configHome src/agents.ts", "expected": "XDG pattern", "observed": "const configHome = xdgConfig ?? join(home, '.config') — matches Goose/Amp/OpenCode pattern" }
+      ],
+      "evidence": {
+        "commands": "grep -A 20 'devin:' src/agents.ts -> all fields correct",
+        "output": ".mission/evidence/1-core-registration/static-analysis/VAL-REG-002-grep.txt"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-REG-005",
+      "title": "No duplicate names or conflicting directories (grep verification)",
+      "status": "pass",
+      "steps": [
+        { "action": "grep -c \"'devin'\" src/types.ts", "expected": "1", "observed": "1" },
+        { "action": "grep -c '^  devin:' src/agents.ts", "expected": "1", "observed": "1" },
+        { "action": "grep -c \"skillsDir.*'\\.devin/skills'\" src/agents.ts", "expected": "1", "observed": "1" },
+        { "action": "grep -c \"globalSkillsDir.*'devin/skills'\" src/agents.ts", "expected": "1", "observed": "1" },
+        { "action": "grep -c \"'Devin for Terminal'\" src/agents.ts", "expected": "1", "observed": "1" }
+      ],
+      "evidence": {
+        "commands": "All uniqueness grep checks returned count 1",
+        "output": ".mission/evidence/1-core-registration/static-analysis/VAL-REG-005-grep.txt"
+      },
+      "issues": null
+    }
+  ],
+  "frictions": [],
+  "blockers": [],
+  "summary": "Tested 3 assertions (VAL-REG-001, VAL-REG-002 grep, VAL-REG-005 grep): all 3 passed"
+}

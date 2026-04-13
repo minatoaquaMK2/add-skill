@@ -1,0 +1,9 @@
+=== VAL-REG-001: grep -c "'devin'" src/types.ts ===
+1
+
+=== grep -n "'devin'" src/types.ts ===
+17:  | 'devin'
+
+=== pnpm type-check ===
+6 pre-existing errors only (git.ts:24, wellknown.ts:312,313,317, skills.ts:48,58)
+No new type errors introduced.

@@ -1,0 +1,8 @@
+=== VAL-REG-005: validate-agents.ts (displayName uniqueness) ===
+bun scripts/validate-agents.ts → exit code 0
+Output: "All agents valid."
+(validate-agents.ts checks displayName uniqueness across all agents)
+
+=== VAL-REG-006: validate-agents.ts passes ===
+bun scripts/validate-agents.ts → exit code 0
+Output: "Validating agents...\nAll agents valid."
