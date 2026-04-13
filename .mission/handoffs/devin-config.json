@@ -1,0 +1,38 @@
+{
+  "featureId": "devin-config",
+  "successState": "success",
+  "returnToOrchestrator": false,
+  "salientSummary": "Added 'devin' agent config entry to src/agents.ts with displayName 'Devin for Terminal', skillsDir '.devin/skills', globalSkillsDir join(configHome, 'devin/skills'), and detection via existsSync(join(configHome, 'devin')). This resolved the transient type error from the devin-type feature. All 402 tests pass, type-check shows only the 6 pre-existing errors, and formatting is clean.",
+  "commitId": "bc6c1324412e767cf842d20067df45fed3bfcf55",
+  "validatorsPassed": true,
+  "whatWasImplemented": "Added devin config object to the agents record in src/agents.ts between deepagents and droid (alphabetical order). Follows the goose pattern (non-universal agent + XDG config paths): name 'devin', displayName 'Devin for Terminal', skillsDir '.devin/skills', globalSkillsDir join(configHome, 'devin/skills') resolving to ~/.config/devin/skills, detectInstalled checks existsSync(join(configHome, 'devin')). isUniversalAgent('devin') returns false because skillsDir !== '.agents/skills'.",
+  "whatWasLeftUndone": "",
+  "discoveredIssues": [],
+  "verification": {
+    "commandsRun": [
+      {
+        "command": "pnpm type-check",
+        "exitCode": 2,
+        "observation": "6 pre-existing type errors only (git.ts, wellknown.ts, skills.ts). The transient 'devin' missing property error is resolved."
+      },
+      {
+        "command": "pnpm test -- --run",
+        "exitCode": 0,
+        "observation": "All 402 tests pass across 26 test files in 16.54s"
+      },
+      {
+        "command": "pnpm format:check",
+        "exitCode": 0,
+        "observation": "All matched files use Prettier code style!"
+      }
+    ],
+    "interactiveChecks": []
+  },
+  "testsAdded": [],
+  "skillFeedback": {
+    "followedProcedure": true,
+    "deviations": [],
+    "suggestedChanges": []
+  },
+  "timestamp": "2026-04-13T12:55:06Z"
+}

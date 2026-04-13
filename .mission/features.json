@@ -47,7 +47,9 @@
         "VAL-REG-004",
         "VAL-REG-005"
       ],
-      "status": "in-progress"
+      "status": "completed",
+      "commitId": "bc6c1324412e767cf842d20067df45fed3bfcf55",
+      "reviewed": true
     },
     {
       "id": "devin-unit-tests",
@@ -70,7 +72,7 @@
       "fulfills": [
         "VAL-REG-006"
       ],
-      "status": "pending"
+      "status": "in-progress"
     },
     {
       "id": "devin-discovery",
