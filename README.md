@@ -4,7 +4,7 @@ The CLI for the open agent skills ecosystem.
 
 <!-- agent-list:start -->
 
-Supports **OpenCode**, **Claude Code**, **Codex**, **Cursor**, and [41 more](#available-agents).
+Supports **OpenCode**, **Claude Code**, **Codex**, **Cursor**, and [42 more](#available-agents).
 
 <!-- agent-list:end -->
 
@@ -243,6 +243,7 @@ Skills can be installed to any of these agents:
 | Crush                                 | `crush`                                  | `.crush/skills/`       | `~/.config/crush/skills/`       |
 | Cursor                                | `cursor`                                 | `.agents/skills/`      | `~/.cursor/skills/`             |
 | Deep Agents                           | `deepagents`                             | `.agents/skills/`      | `~/.deepagents/agent/skills/`   |
+| Devin for Terminal                    | `devin`                                  | `.devin/skills/`       | `~/.config/devin/skills/`       |
 | Droid                                 | `droid`                                  | `.factory/skills/`     | `~/.factory/skills/`            |
 | Firebender                            | `firebender`                             | `.agents/skills/`      | `~/.firebender/skills/`         |
 | Gemini CLI                            | `gemini-cli`                             | `.agents/skills/`      | `~/.gemini/skills/`             |
@@ -350,6 +351,7 @@ The CLI searches for skills in these locations within a repository:
 - `.continue/skills/`
 - `.cortex/skills/`
 - `.crush/skills/`
+- `.devin/skills/`
 - `.factory/skills/`
 - `.goose/skills/`
 - `.junie/skills/`
