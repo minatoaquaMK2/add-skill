@@ -1,0 +1,14 @@
+{
+  "featureId": "devin-installer-tests",
+  "reviewedAt": "2026-04-13T21:42:00Z",
+  "commitId": "79aaa38d3015d1ce37647a2bf2dd1b6563cd1027",
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Added 17 integration tests in tests/devin-installer.test.ts covering all validation contract items assigned to this feature. Tests are well-organized into labeled sections matching VAL-INT-002 through VAL-INT-008 and VAL-CROSS-001. Symlink tests verify: canonical directory is real (not symlink), agent path IS symlink, SKILL.md content propagates through symlink, canonicalPath return value is correct. Copy tests verify: direct write to .devin/skills/<name>, no canonical directory created, undefined canonicalPath. Global path tests verify: getAgentBaseDir returns correct XDG path, agents.devin.globalSkillsDir is defined, project-level path, non-universal classification. Agent recognition tests verify: 'devin' in agents record, installSkillForAgent accepts devin, isSkillInstalled works. listInstalledSkills tests use vi.spyOn to mock detectInstalledAgents, verify skill attribution to devin. End-to-end tests verify discoverSkills and listInstalledSkills both find installed skills. All tests use proper cleanup with try/finally blocks and rm(). The makeSkillSource helper reuses the same subdirectory name 'source-skill' which could theoretically conflict if multiple skills are created in the same root, but each test creates its own mkdtemp root so this is not a practical issue.",
+    "issues": []
+  },
+  "sharedStateObservations": [],
+  "addressesFailureFrom": null,
+  "summary": "Comprehensive integration test suite with 17 tests covering symlink install, copy install, global paths, agent recognition, list attribution, and end-to-end consistency. All tests follow best practices with proper cleanup. Fulfills VAL-INT-002, VAL-INT-003, VAL-INT-004, VAL-INT-005, VAL-INT-008, and VAL-CROSS-001."
+}
