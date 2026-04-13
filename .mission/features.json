@@ -17,7 +17,9 @@
       "fulfills": [
         "VAL-REG-001"
       ],
-      "status": "in-progress"
+      "status": "completed",
+      "commitId": "f4f4aaffa561eb3940de1997de06a2622c50839b",
+      "reviewed": true
     },
     {
       "id": "devin-config",
@@ -45,7 +47,7 @@
         "VAL-REG-004",
         "VAL-REG-005"
       ],
-      "status": "pending"
+      "status": "in-progress"
     },
     {
       "id": "devin-unit-tests",
