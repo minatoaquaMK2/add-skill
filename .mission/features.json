@@ -1,0 +1,148 @@
+{
+  "features": [
+    {
+      "id": "devin-type",
+      "description": "Add 'devin' to AgentType union in src/types.ts",
+      "skillName": "ts-agent-worker",
+      "milestone": "1-core-registration",
+      "preconditions": [],
+      "expectedBehavior": [
+        "'devin' literal exists in AgentType union in src/types.ts",
+        "TypeScript accepts 'devin' as valid AgentType value"
+      ],
+      "verificationSteps": [
+        "grep -c \"'devin'\" src/types.ts returns 1",
+        "pnpm type-check has no new errors beyond baseline 6"
+      ],
+      "fulfills": [
+        "VAL-REG-001"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "devin-config",
+      "description": "Add Devin agent config in src/agents.ts with displayName 'Devin for Terminal', skillsDir '.devin/skills', globalSkillsDir join(configHome, 'devin/skills'), detection via configHome/devin",
+      "skillName": "ts-agent-worker",
+      "milestone": "1-core-registration",
+      "preconditions": [
+        "devin-type"
+      ],
+      "expectedBehavior": [
+        "agents.devin.name === 'devin'",
+        "agents.devin.displayName === 'Devin for Terminal'",
+        "agents.devin.skillsDir === '.devin/skills'",
+        "agents.devin.globalSkillsDir resolves to ~/.config/devin/skills",
+        "detectInstalled uses existsSync(join(configHome 'devin'))",
+        "isUniversalAgent('devin') returns false"
+      ],
+      "verificationSteps": [
+        "grep -A 10 'devin:' src/agents.ts shows correct values",
+        "pnpm type-check has no new errors"
+      ],
+      "fulfills": [
+        "VAL-REG-002",
+        "VAL-REG-003",
+        "VAL-REG-004",
+        "VAL-REG-005"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "devin-unit-tests",
+      "description": "Add unit tests for Devin agent config: type exists, config correctness, detection logic, classification (non-universal), getNonUniversalAgents inclusion, no duplicates. Run validate-agents.ts.",
+      "skillName": "ts-agent-worker",
+      "milestone": "1-core-registration",
+      "preconditions": [
+        "devin-config"
+      ],
+      "expectedBehavior": [
+        "Unit tests verify all config fields",
+        "Tests verify detection logic both branches",
+        "Tests verify non-universal classification",
+        "bun scripts/validate-agents.ts passes"
+      ],
+      "verificationSteps": [
+        "pnpm test -- --run passes all tests",
+        "bun scripts/validate-agents.ts exits 0"
+      ],
+      "fulfills": [
+        "VAL-REG-006"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "devin-discovery",
+      "description": "Add '.devin/skills' to prioritySearchDirs array in src/skills.ts and verify discoverSkills() finds skills in .devin/skills/",
+      "skillName": "ts-agent-worker",
+      "milestone": "2-integration-docs",
+      "preconditions": [
+        "devin-config"
+      ],
+      "expectedBehavior": [
+        "prioritySearchDirs includes join(searchPath '.devin/skills')",
+        "discoverSkills() finds skills in .devin/skills/"
+      ],
+      "verificationSteps": [
+        "grep '.devin/skills' src/skills.ts matches in prioritySearchDirs",
+        "pnpm test -- --run passes"
+      ],
+      "fulfills": [
+        "VAL-INT-001"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "devin-installer-tests",
+      "description": "Add integration tests for skill installation targeting Devin: symlink mode, copy mode, global install paths, isSkillInstalled check, list installed skills",
+      "skillName": "ts-agent-worker",
+      "milestone": "2-integration-docs",
+      "preconditions": [
+        "devin-discovery"
+      ],
+      "expectedBehavior": [
+        "Symlink install creates .agents/skills/<name> + symlink at .devin/skills/<name>",
+        "Copy install writes directly to .devin/skills/<name>",
+        "Global install resolves to ~/.config/devin/skills",
+        "listInstalledSkills finds skills in .devin/skills/"
+      ],
+      "verificationSteps": [
+        "pnpm test -- --run passes all tests including new installer tests"
+      ],
+      "fulfills": [
+        "VAL-INT-002",
+        "VAL-INT-003",
+        "VAL-INT-004",
+        "VAL-INT-005",
+        "VAL-INT-008",
+        "VAL-CROSS-001"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "devin-docs-sync",
+      "description": "Run validate-agents.ts and sync-agents.ts to update README.md agent table, discovery paths, and package.json keywords. Format code with pnpm format.",
+      "skillName": "ts-agent-worker",
+      "milestone": "2-integration-docs",
+      "preconditions": [
+        "devin-installer-tests"
+      ],
+      "expectedBehavior": [
+        "README.md agent table includes Devin for Terminal",
+        "README.md discovery paths include .devin/skills/",
+        "package.json keywords include devin",
+        "All code formatted with Prettier"
+      ],
+      "verificationSteps": [
+        "bun scripts/sync-agents.ts completes",
+        "grep 'Devin for Terminal' README.md matches",
+        "grep '\"devin\"' package.json matches",
+        "pnpm format:check passes"
+      ],
+      "fulfills": [
+        "VAL-INT-006",
+        "VAL-INT-007"
+      ],
+      "status": "pending"
+    }
+  ]
+}

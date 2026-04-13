@@ -1,0 +1,10 @@
+commands:
+  test: pnpm test -- --run
+  typecheck: pnpm type-check
+  lint: pnpm format:check
+  format: pnpm format
+  format_check: pnpm format:check
+  build: pnpm build
+  install: pnpm install
+  validate_agents: bun scripts/validate-agents.ts
+  sync_agents: bun scripts/sync-agents.ts

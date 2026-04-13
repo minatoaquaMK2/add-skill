@@ -1,0 +1,49 @@
+{
+  "assertions": {
+    "VAL-INT-004": {
+      "status": "pending"
+    },
+    "VAL-REG-002": {
+      "status": "pending"
+    },
+    "VAL-INT-002": {
+      "status": "pending"
+    },
+    "VAL-REG-004": {
+      "status": "pending"
+    },
+    "VAL-INT-007": {
+      "status": "pending"
+    },
+    "VAL-INT-005": {
+      "status": "pending"
+    },
+    "VAL-REG-006": {
+      "status": "pending"
+    },
+    "VAL-REG-003": {
+      "status": "pending"
+    },
+    "VAL-INT-006": {
+      "status": "pending"
+    },
+    "VAL-INT-001": {
+      "status": "pending"
+    },
+    "VAL-CROSS-001": {
+      "status": "pending"
+    },
+    "VAL-INT-008": {
+      "status": "pending"
+    },
+    "VAL-REG-005": {
+      "status": "pending"
+    },
+    "VAL-INT-003": {
+      "status": "pending"
+    },
+    "VAL-REG-001": {
+      "status": "pending"
+    }
+  }
+}

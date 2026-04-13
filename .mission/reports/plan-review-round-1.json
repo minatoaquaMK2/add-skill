@@ -1,0 +1,170 @@
+{
+  "overallAssessment": "needs-changes",
+  "reviewDate": "2025-07-22",
+  "reviewer": "planning-review-subagent",
+  "mission": "Add Devin for Terminal agent support to the skills CLI",
+  "summary": "The planning artifacts are well-structured, mostly complete, and demonstrate strong alignment between mission.md, features.json, validation-contract.md, and validation-state.json. All 15 validation assertions are tracked in validation-state.json, and every assertion is covered by at least one feature. However, there are 2 medium-severity issues (a feature-to-assertion misassignment and an inaccurate evidence claim) and 4 low-severity issues that should be addressed before execution begins.",
+  "artifactsReviewed": [
+    ".mission/mission.md",
+    ".mission/validation-contract.md",
+    ".mission/validation-state.json",
+    ".mission/features.json",
+    "AGENTS.md",
+    "services.yaml",
+    "init.sh",
+    ".mission/library/architecture.md",
+    ".mission/library/environment.md",
+    ".mission/library/user-testing.md",
+    ".devin/skills/ts-agent-worker/SKILL.md",
+    "src/types.ts",
+    "src/agents.ts",
+    "src/skills.ts",
+    "src/installer.ts",
+    "scripts/validate-agents.ts",
+    "scripts/sync-agents.ts"
+  ],
+  "codebaseVerification": {
+    "agentTypeUnion": {
+      "currentCount": 46,
+      "format": "Union of string literals separated by | on individual lines",
+      "alphabetical": false,
+      "note": "'openclaw' is misplaced (between claude-code and cline), 'pochi' and 'adal' are appended at end before 'universal'. New entries are not strictly alphabetically sorted."
+    },
+    "agentsRecord": {
+      "xdgPatternAgents": ["amp", "goose", "opencode", "replit", "universal"],
+      "nonUniversalXdgAgents": ["goose"],
+      "closestAnalogForDevin": "goose (non-universal + XDG configHome for globalSkillsDir and detection)",
+      "configHomeUsage": "const configHome = xdgConfig ?? join(home, '.config')"
+    },
+    "prioritySearchDirs": {
+      "currentCount": 27,
+      "containsDevinSkills": false,
+      "missingAgentDirs": [".augment/skills", ".bob/skills", ".factory/skills", ".cortex/skills", ".crush/skills", ".kode/skills", ".mcpjam/skills", ".vibe/skills", ".pochi/skills", ".adal/skills", ".qwen/skills", ".kimi/skills"],
+      "note": "12 agents have skillsDirs not present in prioritySearchDirs (pre-existing drift, not in scope)"
+    },
+    "validateAgentsScript": {
+      "checksPerformed": ["checkDuplicateDisplayNames"],
+      "checksCommentedOut": ["checkDuplicateSkillsDirs"],
+      "successOutput": "All agents valid.",
+      "exitCodeOnSuccess": 0
+    },
+    "syncAgentsScript": {
+      "updatesReadme": true,
+      "updatesPackageJson": true,
+      "keywordsSource": "Object.keys(agents)"
+    }
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "medium",
+      "title": "VAL-CROSS-001 assigned to wrong feature",
+      "description": "VAL-CROSS-001 ('End-to-end config + installer + discovery consistency') describes an integration test: install a skill for Devin, then verify both discoverSkills() and listInstalledSkills() find it. However, in features.json it is assigned to 'devin-docs-sync', which covers README/package.json sync and Prettier formatting — not integration testing. This assertion should be fulfilled by 'devin-installer-tests' (which already covers VAL-INT-002 through VAL-INT-005 and VAL-INT-008) or a dedicated cross-cutting feature.",
+      "affectedArtifacts": [".mission/features.json", ".mission/validation-contract.md"],
+      "suggestedChange": "Move VAL-CROSS-001 from devin-docs-sync.fulfills to devin-installer-tests.fulfills in features.json"
+    },
+    {
+      "id": "F-002",
+      "severity": "medium",
+      "title": "VAL-REG-005 cites validate-agents.ts for skillsDir/globalSkillsDir uniqueness, but the check is commented out",
+      "description": "The validation contract asserts: '`.devin/skills` is unique among all agent skillsDirs. `~/.config/devin/skills` is unique among all agent globalSkillsDirs.' and lists 'bun scripts/validate-agents.ts' as the tool. However, the checkDuplicateSkillsDirs() function is commented out on line 91 of scripts/validate-agents.ts. The script only validates displayName uniqueness. The secondary evidence ('grep counts confirm uniqueness') would catch this, but the primary tool citation is misleading and the worker may rely on a check that doesn't run.",
+      "affectedArtifacts": [".mission/validation-contract.md"],
+      "suggestedChange": "Either (a) update VAL-REG-005 evidence to rely solely on grep-based uniqueness checks, removing validate-agents.ts as a tool for this specific assertion, or (b) note that validate-agents.ts only checks displayName uniqueness and directory uniqueness must be verified via grep"
+    },
+    {
+      "id": "F-003",
+      "severity": "low",
+      "title": "Worker skill says 'alphabetical order' but codebase doesn't follow it",
+      "description": "The ts-agent-worker SKILL.md (line 32) instructs: 'Add the new agent to the AgentType union (alphabetical order within the union).' However, the actual AgentType union in src/types.ts does not follow strict alphabetical order — 'openclaw' appears between 'claude-code' and 'cline', and 'pochi'/'adal' are appended at the end before 'universal'. Similarly in src/agents.ts, the agents record has 'neovate', 'pochi', 'adal' appended at the end. The worker may be confused about where to insert 'devin'.",
+      "affectedArtifacts": [".devin/skills/ts-agent-worker/SKILL.md"],
+      "suggestedChange": "Change instruction to: 'Add the new agent to the AgentType union. Insert alphabetically where possible (e.g., between deepagents and droid), but note the union is not strictly sorted — append before universal if alphabetical insertion is ambiguous. Match the same position in agents.ts.'"
+    },
+    {
+      "id": "F-004",
+      "severity": "low",
+      "title": "Architecture.md lists amp as XDG pattern example but amp is a universal agent",
+      "description": "In .mission/library/architecture.md (line 49), the XDG-Style Global Paths section says: 'Examples: goose, amp, opencode — Devin should follow this pattern'. While all three do use configHome for globalSkillsDir, amp and opencode are universal agents (skillsDir: '.agents/skills'), not non-universal like Devin will be. The closest non-universal + XDG analog is goose alone. This could mislead the worker into copying amp's config structure (which uses .agents/skills for skillsDir).",
+      "affectedArtifacts": [".mission/library/architecture.md"],
+      "suggestedChange": "Clarify: 'XDG global path examples: goose, amp, opencode. **Note**: amp and opencode are universal agents (.agents/skills). For Devin (non-universal + XDG), goose is the closest analog — copy goose's structure but substitute devin paths.'"
+    },
+    {
+      "id": "F-005",
+      "severity": "low",
+      "title": "AGENTS.md has inconsistent script invocation commands",
+      "description": "AGENTS.md uses two different forms for running validation/sync scripts: (1) Lines 137-139 (Development section): 'pnpm run -C scripts validate-agents.ts' — this form may not work correctly since -C changes directory and scripts/ likely has no package.json. (2) Lines 202-203 (Testing & Validation Guidance section): 'bun scripts/validate-agents.ts' — matches services.yaml and mission.md. The worker could use the wrong command form if reading from the Development section.",
+      "affectedArtifacts": ["AGENTS.md"],
+      "suggestedChange": "Standardize both sections to use 'bun scripts/validate-agents.ts' and 'bun scripts/sync-agents.ts', matching services.yaml"
+    },
+    {
+      "id": "F-006",
+      "severity": "low",
+      "title": "services.yaml has redundant lint/format_check entries",
+      "description": "services.yaml defines both 'lint: pnpm format:check' and 'format_check: pnpm format:check' — they are identical. This is not harmful but adds confusion about which key to reference.",
+      "affectedArtifacts": ["services.yaml"],
+      "suggestedChange": "Remove 'lint' entry or document that it is an alias for format_check. This project uses Prettier for formatting, not a linter — the 'lint' name is misleading."
+    }
+  ],
+  "completenessCheck": {
+    "allRequirementsCovered": true,
+    "assertionCount": 15,
+    "assertionIdsInContract": ["VAL-REG-001", "VAL-REG-002", "VAL-REG-003", "VAL-REG-004", "VAL-REG-005", "VAL-REG-006", "VAL-INT-001", "VAL-INT-002", "VAL-INT-003", "VAL-INT-004", "VAL-INT-005", "VAL-INT-006", "VAL-INT-007", "VAL-INT-008", "VAL-CROSS-001"],
+    "assertionIdsInState": ["VAL-REG-001", "VAL-REG-002", "VAL-REG-003", "VAL-REG-004", "VAL-REG-005", "VAL-REG-006", "VAL-INT-001", "VAL-INT-002", "VAL-INT-003", "VAL-INT-004", "VAL-INT-005", "VAL-INT-006", "VAL-INT-007", "VAL-INT-008", "VAL-CROSS-001"],
+    "allAssertionsTracked": true,
+    "allAssertionsPending": true,
+    "featureCount": 6,
+    "allAssertionsFulfilledByFeatures": true,
+    "fulfillmentMapping": {
+      "devin-type": ["VAL-REG-001"],
+      "devin-config": ["VAL-REG-002", "VAL-REG-003", "VAL-REG-004", "VAL-REG-005"],
+      "devin-unit-tests": ["VAL-REG-006"],
+      "devin-discovery": ["VAL-INT-001"],
+      "devin-installer-tests": ["VAL-INT-002", "VAL-INT-003", "VAL-INT-004", "VAL-INT-005", "VAL-INT-008"],
+      "devin-docs-sync": ["VAL-INT-006", "VAL-INT-007", "VAL-CROSS-001"]
+    }
+  },
+  "consistencyCheck": {
+    "contractToStateAlignment": "PASS — all 15 assertion IDs match exactly",
+    "featureToContractCoverage": "PASS — every assertion is referenced by at least one feature",
+    "featurePreconditionChain": "PASS — devin-type → devin-config → devin-unit-tests (M1), devin-config → devin-discovery → devin-installer-tests → devin-docs-sync (M2)",
+    "milestoneAssignment": "PASS — features correctly split across milestone 1 (registration) and milestone 2 (integration)",
+    "serviceCommandsMatchMission": "PASS — all commands in services.yaml match those referenced in mission.md",
+    "initShIdempotent": "PASS — pnpm install with frozen-lockfile fallback is idempotent, PATH export is safe to re-run",
+    "crossArtifactIssues": ["F-001: VAL-CROSS-001 in wrong feature", "F-002: validate-agents.ts evidence mismatch"]
+  },
+  "workerSkillQuality": {
+    "specificity": "Good — names exact files (src/types.ts, src/agents.ts, src/skills.ts), exact commands, and TDD procedure",
+    "toolsNamed": ["pnpm test", "pnpm type-check", "pnpm format", "pnpm format:check", "bun scripts/validate-agents.ts", "bun scripts/sync-agents.ts", "pnpm dev add"],
+    "patternsReferenced": ["Windsurf", "Claude Code", "existing patterns"],
+    "handoffExample": "Well-structured with salientSummary, verification.commandsRun, testsAdded, discoveredIssues",
+    "escalationCriteria": "Clear and appropriate (type conflicts, glob logic changes, test infra changes, unexpected script failures)",
+    "issues": ["F-003: 'alphabetical order' instruction doesn't match codebase reality"]
+  },
+  "edgeCasesAndGaps": [
+    {
+      "description": "prioritySearchDirs in src/skills.ts has 12 agents whose skillsDirs are missing (pre-existing drift). Not in scope, but the worker should be aware that adding .devin/skills follows an existing pattern of manual maintenance.",
+      "inScope": false,
+      "risk": "none for this mission"
+    },
+    {
+      "description": "The AgentType union has 46 members but agents record also has exactly 46 entries (including 'universal'). After adding 'devin', both must have 47 entries. No automated check enforces this parity — it's enforced by TypeScript's Record<AgentType, AgentConfig> type.",
+      "inScope": true,
+      "risk": "low — TypeScript compiler catches mismatches"
+    },
+    {
+      "description": "listInstalledSkills() scans all agent directories via Object.keys(agents), so adding 'devin' to the agents record is sufficient for listing. No separate code change needed in installer.ts. The plan correctly does not include installer.ts changes.",
+      "inScope": true,
+      "risk": "none"
+    },
+    {
+      "description": "The existing .devin/skills/ directory contains 9 mission-planning skills. The off-limits constraint is documented in mission.md, AGENTS.md, and environment.md. The worker must not modify these files during testing or installation.",
+      "inScope": true,
+      "risk": "low — clearly documented"
+    }
+  ],
+  "servicesYamlVerdict": "PASS with minor note — all commands are correct and functional. Redundant lint/format_check is cosmetic only (F-006).",
+  "initShVerdict": "PASS — idempotent, correct PATH, tool verification, fallback install. No issues found.",
+  "readinessBlockers": [
+    "F-001 (medium): Fix VAL-CROSS-001 feature assignment before execution — worker may skip the integration test if it's grouped under docs-sync",
+    "F-002 (medium): Clarify VAL-REG-005 evidence — worker may incorrectly believe validate-agents.ts checks directory uniqueness"
+  ]
+}

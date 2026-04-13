@@ -167,3 +167,40 @@ npm publish
 1. Add the agent definition to `src/agents.ts`
 2. Run `pnpm run -C scripts validate-agents.ts` to validate
 3. Run `pnpm run -C scripts sync-agents.ts` to update README.md and package keywords
+
+## Mission Boundaries
+
+**Current mission:** Add "Devin for Terminal" as a supported agent in the skills CLI.
+
+**In scope:**
+- `src/types.ts` — Add `'devin'` to `AgentType` union
+- `src/agents.ts` — Add Devin agent config
+- `src/skills.ts` — Add `.devin/skills` to discovery priority paths
+- New test files for Devin agent support
+- Running `validate-agents.ts` and `sync-agents.ts`
+- `README.md` and `package.json` updates (via sync script only)
+
+**Off-limits:**
+- Existing `.devin/skills/` content (mission-planning skills)
+- Installer core logic (`src/installer.ts` implementation)
+- CLI command routing (`src/cli.ts`)
+- Source parsing (`src/source-parser.ts`)
+- Any functionality beyond agent registration
+
+**Pre-existing issues (not in scope):**
+- 6 TypeScript type errors in `src/git.ts`, `src/providers/wellknown.ts`, `src/skills.ts`
+
+## Testing & Validation Guidance
+
+**Environment setup:** `export PATH="/opt/homebrew/opt/node@24/bin:$HOME/.bun/bin:$PATH"`
+
+**Validation commands:**
+```bash
+pnpm test -- --run              # All 402+ tests must pass
+pnpm type-check                 # No NEW errors (6 pre-existing are baseline)
+pnpm format:check               # Must pass
+bun scripts/validate-agents.ts  # Must output "All agents valid."
+bun scripts/sync-agents.ts      # Updates README.md and package.json
+```
+
+**Test patterns:** Follow existing patterns in `tests/installer-symlink.test.ts`, `tests/list-installed.test.ts`, and `tests/xdg-config-paths.test.ts`.
