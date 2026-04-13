@@ -72,7 +72,9 @@
       "fulfills": [
         "VAL-REG-006"
       ],
-      "status": "in-progress"
+      "status": "completed",
+      "commitId": "94919f55f8cbb895ecacdc7377f26081f31daec0",
+      "reviewed": true
     },
     {
       "id": "devin-discovery",
@@ -93,7 +95,7 @@
       "fulfills": [
         "VAL-INT-001"
       ],
-      "status": "pending"
+      "status": "in-progress"
     },
     {
       "id": "devin-installer-tests",
@@ -147,6 +149,32 @@
         "VAL-INT-007"
       ],
       "status": "pending"
+    },
+    {
+      "id": "scrutiny-validator-1-core-registration",
+      "description": "Scrutiny validation for milestone 1-core-registration",
+      "skillName": "scrutiny",
+      "milestone": "1-core-registration",
+      "preconditions": [],
+      "expectedBehavior": [],
+      "verificationSteps": [],
+      "fulfills": [],
+      "status": "completed",
+      "commitId": "cd3d406"
+    },
+    {
+      "id": "user-testing-validator-1-core-registration",
+      "description": "User-testing validation for milestone 1-core-registration",
+      "skillName": "user-testing",
+      "milestone": "1-core-registration",
+      "preconditions": [
+        "scrutiny-validator-1-core-registration"
+      ],
+      "expectedBehavior": [],
+      "verificationSteps": [],
+      "fulfills": [],
+      "status": "completed",
+      "commitId": "686ef97a64fd4468d822ee2a6070e515a2664b28"
     }
   ]
 }

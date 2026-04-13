@@ -163,7 +163,7 @@ export async function discoverSkills(
     join(searchPath, '.codex/skills'),
     join(searchPath, '.commandcode/skills'),
     join(searchPath, '.continue/skills'),
-
+    join(searchPath, '.devin/skills'),
     join(searchPath, '.github/skills'),
     join(searchPath, '.goose/skills'),
     join(searchPath, '.iflow/skills'),

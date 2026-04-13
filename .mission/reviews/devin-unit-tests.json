@@ -1,0 +1,19 @@
+{
+  "featureId": "devin-unit-tests",
+  "reviewedAt": "2026-04-13T13:10:00Z",
+  "commitId": "94919f55f8cbb895ecacdc7377f26081f31daec0",
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "New test file tests/devin-agent.test.ts (142 lines) adds 17 well-structured unit tests across 4 describe blocks covering all feature requirements: config field correctness, detection logic (both branches), non-universal classification, and uniqueness/no-duplicate guards. The test uses vi.hoisted() + vi.mock('fs') to control existsSync — the correct Vitest pattern for mocking detection logic. Code is clean, properly formatted (format:check passed), and follows existing project test patterns (mirrors tests/xdg-config-paths.test.ts structure closely). The remaining diff is mission state bookkeeping (.mission/ files) which is correctly maintained. No production code was modified, as expected for a test-only feature.",
+    "issues": [
+      {
+        "file": "tests/devin-agent.test.ts",
+        "line": 37,
+        "severity": "non_blocking",
+        "description": "configHome is derived using `process.env.XDG_CONFIG_HOME || join(home, '.config')` (falsy-coalescing) while src/agents.ts uses `xdgConfig ?? join(home, '.config')` (nullish-coalescing via xdg-basedir). If XDG_CONFIG_HOME were set to an empty string, the test and source would disagree. In practice this is a non-issue since XDG_CONFIG_HOME is never empty, and the existing xdg-config-paths.test.ts uses the same pattern."
+      }
+    ]
+  },
+  "summary": "Pass. 17 comprehensive unit tests for Devin agent config covering all 4 expected behaviors (config fields, detection branches, non-universal classification, validate-agents). Tests follow existing project patterns, use correct Vitest mocking, and the commit includes no production code changes. One non-blocking observation about configHome derivation style difference vs source."
+}

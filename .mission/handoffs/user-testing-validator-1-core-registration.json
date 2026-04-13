@@ -1,0 +1,32 @@
+{
+  "featureId": "user-testing-validator-1-core-registration",
+  "successState": "success",
+  "returnToOrchestrator": true,
+  "salientSummary": "User testing round 1 for 1-core-registration: 6/6 assertions passed, 0 failed, 0 blocked.",
+  "commitId": "686ef97a64fd4468d822ee2a6070e515a2664b28",
+  "validatorsPassed": true,
+  "whatWasImplemented": "Tested all 6 VAL-REG assertions through real user surface. Wrote flow reports and synthesis.",
+  "whatWasLeftUndone": "",
+  "discoveredIssues": [],
+  "verification": {
+    "commandsRun": [
+      {
+        "command": "pnpm test -- --run",
+        "exitCode": 0,
+        "observation": "419 tests passed"
+      },
+      {
+        "command": "bun scripts/validate-agents.ts",
+        "exitCode": 0,
+        "observation": "All agents valid."
+      }
+    ]
+  },
+  "testsAdded": [],
+  "skillFeedback": {
+    "followedProcedure": true,
+    "deviations": [],
+    "suggestedChanges": []
+  },
+  "timestamp": "2026-04-13T13:17:11Z"
+}

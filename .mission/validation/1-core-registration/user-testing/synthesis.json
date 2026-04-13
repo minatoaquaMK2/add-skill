@@ -11,7 +11,10 @@
   "failedAssertions": [],
   "blockedAssertions": [],
   "appliedUpdates": [
-    { "target": "library/user-testing.md", "description": "Updated test count to 419, added runtime findings for milestone 1-core-registration" }
+    {
+      "description": "Updated test count to 419, added runtime findings for milestone 1-core-registration",
+      "target": "library/user-testing.md"
+    }
   ],
   "previousRound": null
 }

@@ -1,11 +1,13 @@
 {
   "state": "executing",
-  "currentFeature": "devin-unit-tests",
-  "currentMilestone": "1-core-registration",
-  "completedFeatures": 2,
-  "totalFeatures": 6,
-  "milestonesSealed": [],
+  "currentFeature": "devin-discovery",
+  "currentMilestone": "2-integration-docs",
+  "completedFeatures": 5,
+  "totalFeatures": 8,
+  "milestonesSealed": [
+    "1-core-registration"
+  ],
   "knownIssues": [],
   "createdAt": null,
-  "updatedAt": "2026-04-13T12:56:49Z"
+  "updatedAt": "2026-04-13T13:17:36Z"
 }
