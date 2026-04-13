@@ -1,0 +1,14 @@
+{
+  "featureId": "devin-type",
+  "reviewedAt": "2026-04-13T13:10:00Z",
+  "commitId": "f4f4aaffa561eb3940de1997de06a2622c50839b",
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Single-line addition of '| devin' to AgentType union in src/types.ts, inserted alphabetically between 'deepagents' and 'droid'. Minimal, correct change. grep confirms exactly 1 occurrence. The transient +1 type error (missing devin key in agents record) was expected and resolved by the subsequent devin-config feature. No tests needed for a pure type literal addition — behavioral tests are covered by devin-unit-tests.",
+    "issues": []
+  },
+  "sharedStateObservations": [],
+  "addressesFailureFrom": null,
+  "summary": "Clean, minimal type addition. Fulfills VAL-REG-001. No issues."
+}

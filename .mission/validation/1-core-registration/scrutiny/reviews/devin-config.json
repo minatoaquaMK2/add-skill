@@ -1,0 +1,14 @@
+{
+  "featureId": "devin-config",
+  "reviewedAt": "2026-04-13T13:14:00Z",
+  "commitId": "bc6c1324412e767cf842d20067df45fed3bfcf55",
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Added devin agent config to src/agents.ts between deepagents and droid (alphabetical). Config follows the goose pattern exactly (non-universal + XDG): name 'devin', displayName 'Devin for Terminal', skillsDir '.devin/skills', globalSkillsDir join(configHome, 'devin/skills'), detectInstalled via existsSync(join(configHome, 'devin')). Satisfies all expected behaviors: correct field values, XDG detection, non-universal classification (skillsDir !== '.agents/skills'). Resolved the transient type error from devin-type. No issues.",
+    "issues": []
+  },
+  "sharedStateObservations": [],
+  "addressesFailureFrom": null,
+  "summary": "Correct agent config following the goose pattern. Fulfills VAL-REG-002 through VAL-REG-005. No issues."
+}
